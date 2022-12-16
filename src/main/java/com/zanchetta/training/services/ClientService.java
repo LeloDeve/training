@@ -15,16 +15,28 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public List<Client> findAll(){
+    public List<Client> findAll() {
         return clientRepository.findAll();
 
     }
-    public Client findById(String id){
+
+    public Client findById(String id) {
         Optional<Client> client = clientRepository.findById(id); //se nao encontrar o id ele retorna nulo
-        //if (client == null){
-         //   throw new ObjectNotFoundException("Objeto nao encontrado");
-        //}
-            return client.orElseThrow(()-> new ObjectNotFoundException("Objeto nao encontrado"));
+    /*
+        if (client == null){
+           throw new ObjectNotFoundException("Objeto nao encontrado");
+        }
+    */
+        return client.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
     }
+
+    public Client insert(Client client){ //metodo retorna um cliente inserido no db
+        return clientRepository.insert(client);
+    }
+    public void delete(String id){ //metodo recebe um id, procura por id e deleta pelo id encontrado
+        findById(id);
+        clientRepository.deleteById(id);
+    }
+
 
 }

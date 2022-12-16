@@ -6,11 +6,10 @@ import com.zanchetta.training.services.ClientService;
 import com.zanchetta.training.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,6 +31,14 @@ public class ProductResource {
     public ResponseEntity<Product> findById(@PathVariable String id){
         Product product = productService.findById(id);
         return  ResponseEntity.ok().body(product);
+    }
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody Product product){
+        Product obj = productService.insert(product);
+
+        //vai retornar uma messagem/cabeçalho com o caminho do novo recurso criado
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }

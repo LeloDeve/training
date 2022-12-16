@@ -28,4 +28,12 @@ public class ProductService {
         return product.orElseThrow(()-> new ObjectNotFoundException("Produto nao encontrado"));
     }
 
+    public Product insert(Product product){ //metodo retorna um cliente inserido no db
+        return productRepository.insert(product);
+    }
+    public void delete(String id){ //metodo recebe um id, procura por id e deleta pelo id encontrado
+        findById(id);
+        productRepository.deleteById(id);
+    }
+
 }
