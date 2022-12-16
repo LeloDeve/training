@@ -38,7 +38,7 @@ public class Initialization implements CommandLineRunner {
 
         productRepository.saveAll(Arrays.asList(maconha, tv, livro, carro));
 
-        
+
 
     }
 }

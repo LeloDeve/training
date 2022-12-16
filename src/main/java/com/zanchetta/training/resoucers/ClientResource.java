@@ -1,10 +1,12 @@
 package com.zanchetta.training.resoucers;
 
 import com.zanchetta.training.domain.Client;
+import com.zanchetta.training.domain.Product;
 import com.zanchetta.training.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +27,12 @@ public class ClientResource {
 
         return ResponseEntity.ok().body(list);
 
+    }
+    @GetMapping
+    @RequestMapping(value = "/{id}")
+    public ResponseEntity<Client> findById(@PathVariable String id){
+        Client client = clientService.findById(id);
+        return  ResponseEntity.ok().body(client);
     }
 
 }
